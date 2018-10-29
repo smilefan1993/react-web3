@@ -98,6 +98,15 @@ class Web3Provider extends React.Component {
    */
   fetchAccounts() {
     const { web3 } = window;
+    if (window.ethereum) {
+      try {
+        ethereum.enable();
+        } catch (error) {
+          alert('User denied account access');
+          return;
+        }
+    }
+
     const ethAccounts = this.getAccounts();
 
     if (isEmpty(ethAccounts)) {
@@ -167,6 +176,14 @@ class Web3Provider extends React.Component {
    */
   fetchNetwork() {
     const { web3 } = window;
+      if (window.ethereum) {
+          try {
+              ethereum.enable();
+          } catch (error) {
+              alert('User denied account access');
+              return;
+          }
+      }
 
     web3 && web3.version && web3.version.getNetwork((err, netId) => {
       if (err) {
@@ -192,6 +209,14 @@ class Web3Provider extends React.Component {
   getAccounts() {
     try {
       const { web3 } = window;
+        if (window.ethereum) {
+            try {
+                ethereum.enable();
+            } catch (error) {
+                alert('User denied account access');
+                return;
+            }
+        }
       // throws if no account selected
       const accounts = web3.eth.accounts;
 
